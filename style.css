@@ -1,0 +1,43 @@
+body {
+    font-family:  Arial, sans-serif, sans-serif;
+    background: #e9e6eb;
+    text-align: center;
+    font: weight 6px;;
+}
+
+.container {
+    margin-top: 80px;
+}
+
+input {
+    display: block;
+    width: 260px;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+button {
+    padding: 10px 25px;
+    cursor: pointer;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+table{
+    width:80%;
+    margin-top:20px;
+    background:white;
+}
+
+th, td{
+    padding:12px;
+    text-align:center;
+}
+
+.gradeA{color:green; font-weight:bold;}
+.gradeB{color:blue; font-weight:bold;}
+.gradeC{color:orange; font-weight:bold;}
+.gradeF{color:red; font-weight:bold;}

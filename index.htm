@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Performance Tracker</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
+body{scroll-behavior:smooth;}
+
+nav{
+    background:#222;
+    padding:15px;
+    text-align:center;
+    position:sticky;
+    top:0;
+}
+nav a{
+    color:white;
+    margin:0 15px;
+    text-decoration:none;
+    font-weight:bold;
+}
+nav a:hover{color:orange;}
+
+section{
+    min-height:100vh;
+    padding:60px 20px;
+    text-align:center;
+}
+
+#home{background:#f4f6f8;}
+#students{background:#e3f2fd;}
+#results{background:#fff3e0;}
+#about{background:#e8f5e9;}
+#contact{background:#fce4ec;}
+
+h1{margin-bottom:20px;}
+
+input{
+    padding:10px;
+    width:250px;
+    margin:8px;
+}
+
+button{
+    padding:10px 25px;
+    cursor:pointer;
+    background:orange;
+    border:none;
+    color:white;
+    font-weight:bold;
+}
+
+button:hover{background:darkorange;}
+
+#result{
+    margin-top:20px;
+    font-size:18px;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#students">Students</a>
+    <a href="#results">Results</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+    <h1>School Performance Tracker</h1>
+    <p>Welcome! This system helps calculate and track student performance easily.</p>
+</section>
+
+<!-- STUDENTS -->
+<section id="students">
+    <h1>Enter Student Marks</h1>
+    <input type="text" id="name" placeholder="Student Name"><br>
+    <input type="number" id="sub1" placeholder="Subject 1 Marks"><br>
+    <input type="number" id="sub2" placeholder="Subject 2 Marks"><br>
+    <input type="number" id="sub3" placeholder="Subject 3 Marks"><br>
+    <button onclick="calculate()">Calculate Result</button>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+    <h1>Results</h1>
+    <div id="result">Student results will appear here...</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <h1>About School Performance Tracker</h1>
+    <p>
+        School Performance Tracker waa nidaam fudud oo casri ah oo lagu xisaabiyo laguna
+        la socdo waxqabadka ardayda. Nidaamkani wuxuu ka caawiyaa macallimiinta iyo
+        maamulka iskuulka inay si degdeg ah u arkaan celceliska dhibcaha iyo darajada arday kasta.
+    </p>
+
+    <p>
+        Mashruucan waxaa lagu dhisay HTML, CSS, iyo JavaScript si loo muujiyo adeegsiga
+        DOM manipulation, event handling, input validation, iyo kaydinta xogta iyadoo la
+        adeegsanayo arrays. Natiijooyinka waxaa lagu soo bandhigaa isla bogga iyada oo aan
+        dib loo cusboonaysiin (reload) page-ka.
+    </p>
+
+    <p>
+        Ujeeddada ugu weyn waa in la sameeyo hab sahlan oo lagu qiimeeyo ardayda
+        laguna yareeyo qaladaadka xisaabinta gacanta lagu sameeyo.
+    </p>
+</section>
+    
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <h1>Contact Us</h1>
+    <p>
+        Haddii aad qabto su’aalo, talooyin, ama aad rabto macluumaad dheeraad ah
+        oo ku saabsan School Performance Tracker, fadlan nala soo xiriir.
+    </p>
+
+    <p><strong>Email:</strong> info@schooltracker.com</p>
+    <p><strong>Phone:</strong> +252 683608279/771899963</p>
+    <p><strong>Address:</strong> Zone-key, Mogadishu, Somalia</p>
+
+    <p>
+        Waxaan ku faraxsanahay inaan ka jawaabno su’aalahaaga kuna caawinno
+        adeegsiga nidaamkan.
+    </p>
+</section>
+
+<script>
+let students = [];
+
+function calculate(){
+    let name = document.getElementById("name").value.trim();
+    let s1 = Number(document.getElementById("sub1").value);
+    let s2 = Number(document.getElementById("sub2").value);
+    let s3 = Number(document.getElementById("sub3").value);
+    let result = document.getElementById("result");
+
+    if(name === "" || s1 <= 0 || s2 <= 0 || s3 <= 0){
+        result.innerHTML = "Please enter valid data!";
+        result.style.color = "red";
+        location.href="#results";
+        return;
+    }
+
+    let avg = (s1 + s2 + s3) / 3;
+    let grade;
+
+    if(avg >= 80) grade = "A";
+    else if(avg >= 60) grade = "B";
+    else if(avg >= 50) grade = "C";
+    else grade = "Fail";
+
+    students.push({name, avg, grade});
+
+    result.innerHTML = `
+        Name: ${name} <br>
+        Average: ${avg.toFixed(2)} <br>
+        Grade: ${grade}
+    `;
+    result.style.color = "green";
+
+    location.href="#results";
+}
+</script>
+
+</body>
+</html>
