@@ -52,7 +52,6 @@ button{
     color:white;
     font-weight:bold;
 }
-
 button:hover{background:darkorange;}
 
 #result{
@@ -81,10 +80,20 @@ button:hover{background:darkorange;}
 <!-- STUDENTS -->
 <section id="students">
     <h1>Enter Student Marks</h1>
-    <input type="text" id="name" placeholder="Student Name"><br>
+
+    <!-- Name input (letters only) -->
+    <input 
+        type="text" 
+        id="name" 
+        placeholder="Student Name (letters only)"
+        maxlength="30"
+        oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')"
+    ><br>
+
     <input type="number" id="sub1" placeholder="Subject 1 Marks"><br>
     <input type="number" id="sub2" placeholder="Subject 2 Marks"><br>
     <input type="number" id="sub3" placeholder="Subject 3 Marks"><br>
+
     <button onclick="calculate()">Calculate Result</button>
 </section>
 
@@ -99,78 +108,67 @@ button:hover{background:darkorange;}
     <h1>About School Performance Tracker</h1>
     <p>
         School Performance Tracker waa nidaam fudud oo casri ah oo lagu xisaabiyo laguna
-        la socdo waxqabadka ardayda. Nidaamkani wuxuu ka caawiyaa macallimiinta iyo
-        maamulka iskuulka inay si degdeg ah u arkaan celceliska dhibcaha iyo darajada arday kasta.
+        la socdo waxqabadka ardayda.
     </p>
-
-    <p>
-        Mashruucan waxaa lagu dhisay HTML, CSS, iyo JavaScript si loo muujiyo adeegsiga
-        DOM manipulation, event handling, input validation, iyo kaydinta xogta iyadoo la
-        adeegsanayo arrays. Natiijooyinka waxaa lagu soo bandhigaa isla bogga iyada oo aan
-        dib loo cusboonaysiin (reload) page-ka.
-    </p>
-
-    <p>
-        Ujeeddada ugu weyn waa in la sameeyo hab sahlan oo lagu qiimeeyo ardayda
-        laguna yareeyo qaladaadka xisaabinta gacanta lagu sameeyo.
-    </p>
-</section>
-    
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
     <h1>Contact Us</h1>
-    <p>
-        Haddii aad qabto su’aalo, talooyin, ama aad rabto macluumaad dheeraad ah
-        oo ku saabsan School Performance Tracker, fadlan nala soo xiriir.
-    </p>
-
     <p><strong>Email:</strong> info@schooltracker.com</p>
-    <p><strong>Phone:</strong> +252 683608279/771899963</p>
-    <p><strong>Address:</strong> Zone-key, Mogadishu, Somalia</p>
-
-    <p>
-        Waxaan ku faraxsanahay inaan ka jawaabno su’aalahaaga kuna caawinno
-        adeegsiga nidaamkan.
-    </p>
+    <p><strong>Phone:</strong> +252 683608279 / 771899963</p>
+    <p><strong>Address:</strong> Mogadishu, Somalia</p>
 </section>
 
 <script>
 let students = [];
 
-function calculate(){
+function calculate() {
     let name = document.getElementById("name").value.trim();
     let s1 = Number(document.getElementById("sub1").value);
     let s2 = Number(document.getElementById("sub2").value);
     let s3 = Number(document.getElementById("sub3").value);
     let result = document.getElementById("result");
 
-    if(name === "" || s1 <= 0 || s2 <= 0 || s3 <= 0){
-        result.innerHTML = "Please enter valid data!";
+    // Name validation
+    let namePattern = /^[A-Za-z\s]{3,}$/;
+    if (!namePattern.test(name)) {
+        result.innerHTML = "❌ Please enter a valid student name (letters only, min 3 characters).";
         result.style.color = "red";
-        location.href="#results";
+        location.href = "#results";
+        return;
+    }
+
+    // Marks validation
+    if (
+        isNaN(s1) || isNaN(s2) || isNaN(s3) ||
+        s1 <= 0 || s2 <= 0 || s3 <= 0 ||
+        s1 > 100 || s2 > 100 || s3 > 100
+    ) {
+        result.innerHTML = "❌ Please enter valid marks (1–100).";
+        result.style.color = "red";
+        location.href = "#results";
         return;
     }
 
     let avg = (s1 + s2 + s3) / 3;
     let grade;
 
-    if(avg >= 80) grade = "A";
-    else if(avg >= 60) grade = "B";
-    else if(avg >= 50) grade = "C";
+    if (avg >= 80) grade = "A";
+    else if (avg >= 60) grade = "B";
+    else if (avg >= 50) grade = "C";
     else grade = "Fail";
 
-    students.push({name, avg, grade});
+    students.push({ name, avg, grade });
 
     result.innerHTML = `
-        Name: ${name} <br>
-        Average: ${avg.toFixed(2)} <br>
-        Grade: ${grade}
+        ✅ Name: ${name} <br>
+        📊 Average: ${avg.toFixed(2)} <br>
+        🏆 Grade: ${grade}
     `;
     result.style.color = "green";
 
-    location.href="#results";
+    location.href = "#results";
 }
 </script>
 
